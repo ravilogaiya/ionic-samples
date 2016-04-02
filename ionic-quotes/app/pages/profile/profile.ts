@@ -13,62 +13,42 @@ const map: any = require('rxjs/add/operator/map');
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+declare var Auth0Lock: any;
+
 @Page({
   templateUrl: 'build/pages/profile/profile.html',
-  directives: [FORM_DIRECTIVES]
 })
 export class ProfilePage {
-  LOGIN_URL: string = "http://localhost:3001/sessions/create";
-  SIGNUP_URL: string = "http://localhost:3001/users";
-
   auth: AuthService;
-  // When the page loads, we want the Login segment to be selected
-  authType: string = "login";
-  // We need to set the content type for the server
-  contentHeader: Headers = new Headers({"Content-Type": "application/json"});
-  error: string;
-  jwtHelper: JwtHelper = new JwtHelper();
+  lock: Auth0Lock = new Auth0Lock('lKON6UJJV5zP6KePediJ1rQlRQUFHKLV', 'lychees.auth0.com');
   local: Storage = new Storage(LocalStorage);
-  user: string;
+  user: {username: '', email: ''};
 
-  static get parameters() {
-    return [[NavController], [Http]];
-  }
-
-  constructor(private nav, private http) {
+  constructor() {
     this.auth = AuthService;
-        let token = this.local.get('id_token')._result;
-        if(token) {
-          this.user = this.jwtHelper.decodeToken(token).username;
-        }
+    let profile = this.local.get('profile')._result;
+    if (profile) {
+      this.user = JSON.parse(profile);
+    }
   }
 
-  login(credentials) {
-    this.http.post(this.LOGIN_URL, JSON.stringify(credentials), { headers: this.contentHeader })
-      .map(res => res.json())
-      .subscribe(
-        data => this.authSuccess(data.id_token),
-        err => this.error = err
-      );
-  }
+  login() {
+    this.lock.show((err, profile, token) => {
+      if (err) {
+        alert(err);
+        return;
+      }
 
-  signup(credentials) {
-    this.http.post(this.SIGNUP_URL, JSON.stringify(credentials), { headers: this.contentHeader })
-      .map(res => res.json())
-      .subscribe(
-        data => this.authSuccess(data.id_token),
-        err => this.error = err
-      );
+      this.local.set('profile', JSON.stringify(profile));
+      this.local.set('id_token', token);
+      this.user = profile;
+
+    });
   }
 
   logout() {
+    this.local.remove('profile');
     this.local.remove('id_token');
     this.user = null;
-  }
-
-  authSuccess(token) {
-    this.error = null;
-    this.local.set('id_token', token);
-    this.user = this.jwtHelper.decodeToken(token).username;
   }
 }

@@ -6,7 +6,8 @@ var express = require('express'),
 var app = module.exports = express.Router();
 
 var jwtCheck = jwt({
-  secret: config.secret
+  secret: new Buffer('aVB4QS7C-mZpEk41FF96bA8lWV5FiXzCxJM2rsOeqvX6D5R7WKT0YdxuTvg3iCf2', 'base64'),
+  audience: 'lKON6UJJV5zP6KePediJ1rQlRQUFHKLV'
 });
 
 app.use('/api/protected', jwtCheck);
