@@ -20,9 +20,8 @@ declare var Auth0Lock: any;
 })
 export class ProfilePage {
   auth: AuthService;
-  lock: Auth0Lock = new Auth0LockPasswordless('lKON6UJJV5zP6KePediJ1rQlRQUFHKLV', 'lychees.auth0.com');
-
-  // lock: Auth0Lock = new Auth0Lock('lKON6UJJV5zP6KePediJ1rQlRQUFHKLV', 'lychees.auth0.com');
+  // lock: Auth0Lock = new Auth0LockPasswordless('lKON6UJJV5zP6KePediJ1rQlRQUFHKLV', 'lychees.auth0.com');
+  lock: Auth0Lock = new Auth0Lock('lKON6UJJV5zP6KePediJ1rQlRQUFHKLV', 'lychees.auth0.com');
   local: Storage = new Storage(LocalStorage);
   user: {username: '', email: ''};
 
@@ -35,12 +34,11 @@ export class ProfilePage {
   }
 
   login() {
-    //this.lock.showSignin((err, profile, token) => {
-    this.lock.sms((err, profile, token) => {
+    this.lock.showSignin((err, profile, token) => {
+    // this.lock.sms((err, profile, token) => {
       if (err) {
         alert(err);
         console.log("error log in");
-        this.lock = new Auth0LockPasswordless('lKON6UJJV5zP6KePediJ1rQlRQUFHKLV', 'lychees.auth0.com');
         return;
       }
 
