@@ -1,0 +1,21 @@
+.home {
+  .product-type-container {
+    background-color:#FFFFFF;
+    padding: 12px 15px 15px 15px;
+    margin-bottom: .9375rem;
+    margin-top: .9375rem;
+    box-sizing: content-box;
+    border:solid 2px #FFFFFF;
+    -webkit-box-shadow: 6px 7px 29px -12px rgba(92,90,92,1);
+    -moz-box-shadow: 6px 7px 29px -12px rgba(92,90,92,1);
+    box-shadow: 6px 7px 29px -12px rgba(92,90,92,1);
+  }
+
+  .product-type-container:hover {
+    border:solid 2px #3498DB;
+  }
+
+  .product-type-container span {
+    text-transform: capitalize;
+  }
+}

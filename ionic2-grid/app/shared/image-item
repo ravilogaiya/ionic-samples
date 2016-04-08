@@ -1,0 +1,4 @@
+export interface ImageItem {
+	source: string;
+	index: number;
+}
