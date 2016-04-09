@@ -15,11 +15,15 @@ export class ProductTypeService {
 
   addProductType(productType: ProductType)
   {
-    this.productTypes = [...this.productTypes, productType];
+    this.productTypes.push(productType);
   }
 
   deleteProductType(productType: ProductType)
   {
+    var index = this.productTypes.indexOf(productType);
+    console.log("deleteProductType index " + index);
+    this.productTypes.splice(index, 1);
 
+    console.log("deleteProductType size " + this.productTypes.length);
   }
 }

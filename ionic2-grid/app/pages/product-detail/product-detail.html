@@ -9,31 +9,31 @@
 </ion-navbar>
 
 <ion-content class="product-detail">
-  <div>
-    <ion-row>
-      <ion-col>
-          <button class="btn" (click)="onAddNewType()">Save</button>
-      </ion-col>
-      <ion-col>
-          <button class="btn" *ngIf="productType !== null" (click)="onAddNewType()">Delete</button>
-      </ion-col>
-    </ion-row>
-  </div>
+  <form id="product-type-detail" [ngFormModel]="productTypeDetailForm" (ngSubmit)="onSubmit($event)" #f="ngForm">
+    <div>
+      <ion-row>
+        <ion-col>
+            <button class="btn" type="sumbit" [disabled]="!f.valid" >Save</button>
+        </ion-col>
+        <ion-col>
+            <button class="btn danger" *ngIf="editMode === 'edit'" (click)="onDelete()">Delete</button>
+        </ion-col>
+      </ion-row>
+    </div>
 
-  <form id="product-type-detail" (ngSubmit)="onSubmit(f.value)" #f="ngForm">
     <ion-item>
       <ion-label floating>Name</ion-label>
-      <ion-input type="text" id="item-name" required [ngModel]="productType?.name" ngControl="name"></ion-input>
+      <ion-input type="text" id="item-name" [ngFormControl]="productTypeDetailForm.controls['name']"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Description</ion-label>
-      <ion-input type="text" id="item-name" required [ngModel]="productType?.description" ngControl="description"></ion-input>
+      <ion-input type="text" id="item-description" [ngFormControl]="productTypeDetailForm.controls['description']"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Image Url</ion-label>
-      <ion-input type="text" id="item-name" required [ngModel]="productType?.image" ngControl="image" #imageUrl></ion-input>
+      <ion-input type="text" id="item-image" [ngFormControl]="productTypeDetailForm.controls['image']" #imageUrl></ion-input>
     </ion-item>
   </form>
 

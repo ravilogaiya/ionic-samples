@@ -21,8 +21,7 @@ import {ProductType} from "../models/product-type";
           <product-type-list-render [productType]="productTypes[i+3]"></product-type-list-render>
        </ion-col>
     </ion-row>
-    `,
-    providers: [ProductTypeService]
+    `
 })
 export class ProductTypeListComponent {
 
