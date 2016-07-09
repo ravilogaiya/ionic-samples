@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HomePage} from './pages/home/home';
-import { TestClass } from '../../external/test.ts';
+import { TestClass } from '../shared/services/test.ts';
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>'
